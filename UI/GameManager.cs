@@ -5,10 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using LanguageModule; 
 
+/// <summary>
+/// Game manager and UI of the game. 
+/// </summary>
 public class GameManager : MonoBehaviour {
 
     public GameObject Carburant;
-    private int NombreCarburant = 4;
+    private int FuelNumber = 4;
     private GameObject DistanceObject;
 
     private GameObject PlayAgainObject;
@@ -38,8 +41,8 @@ public class GameManager : MonoBehaviour {
         Victory = GameObject.Find("Victory");
         Victory.SetActive(false);
         DimensionInformation = GameObject.Find("DimensionNumber");
+        SetDistanceGoal();
         DimensionInformation.GetComponent<Text>().text = dimensionsString[PlayerPrefs.GetInt("Level") - 1] + " dimension";
-        SetDistanceGoal(); 
     }
 
     public void SetDistanceGoal() {
@@ -52,38 +55,41 @@ public class GameManager : MonoBehaviour {
         CheckForEscape(); 
     }
 
-    public void AjouterCarburant() {
-        if (NombreCarburant == 4) {
+    /// <summary>
+    /// Add fuel when colliding with a fuel object. 
+    /// </summary>
+    public void AddFuel() {
+        if (FuelNumber == 4) {
             return; 
         }
-        NombreCarburant++;
-        Carburant.transform.GetChild(NombreCarburant - 1).gameObject.SetActive(true); 
+        FuelNumber++;
+        Carburant.transform.GetChild(FuelNumber - 1).gameObject.SetActive(true); 
     }
 
     public void EnleverCarburant() {
-        if (NombreCarburant == 1) {
+        if (FuelNumber == 1) {
             Debug.Log("Lose Carburant"); 
-            Lose("You ran out of fuel"); 
+            Lose("You ran out of fuel\nLook for the H2 bottles"); 
         } else {
-            NombreCarburant--;
+            FuelNumber--;
             StartCoroutine(DisableCarburantAnimation()); 
         }
     }
 
     private IEnumerator DisableCarburantAnimation() {
         for (int i = 0; i < 5; i++) {
-            if (NombreCarburant == 4) {
+            if (FuelNumber == 4) {
                 yield break; 
             }
-            Carburant.transform.GetChild(NombreCarburant).gameObject.SetActive(false);
+            Carburant.transform.GetChild(FuelNumber).gameObject.SetActive(false);
             yield return new WaitForSeconds(0.15f);
-            Carburant.transform.GetChild(NombreCarburant).gameObject.SetActive(true);
+            Carburant.transform.GetChild(FuelNumber).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.15f); 
         }
-        Carburant.transform.GetChild(NombreCarburant).gameObject.SetActive(false);
+        Carburant.transform.GetChild(FuelNumber).gameObject.SetActive(false);
     }
 
-    public void UpdateDistanceTrouNoir(float distance) {
+    public void UpdateDistanceBlackHole(float distance) {
         if (distance > distanceGoal) {
             // C'est gagné. 
             Win(); 
@@ -149,6 +155,7 @@ public class GameManager : MonoBehaviour {
         if (!GoingToNextLevel) {
             GoingToNextLevel = true;
             Victory.SetActive(true);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<FuseeController>().canMove = false;
             GameObject.FindGameObjectWithTag("Player").GetComponent<FuseeController>().PlayWin(); 
         }
     }

@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The Rocket controller from the first dimension level.
+/// </summary>
 public class FuseeController1D : FuseeController {
 
     public float speed = 10f; 
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 
     // Update is called once per frame
     public override void Update() {

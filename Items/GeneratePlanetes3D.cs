@@ -2,30 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Generate planets in the 3D levels. 
+/// </summary>
 public class GeneratePlanetes3D : MonoBehaviour {
 
-    public bool fourhtDim; 
+    /// <summary>
+    /// If we are in the fourth dimension, the planet will live. 
+    /// That means that they will grow and die and make another
+    /// planet spawn into the universe. 
+    /// </summary>
+    public bool fourthDim; 
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < 500; i++) {
-            GenererPlaneteRandom(); 
+		for (int i = 0; i < 1000; i++) {
+            GenerateRandomPlanets(); 
         }
 
-        for (int i = 0; i < 200; i++) {
-            GenererCarburant(); 
+        for (int i = 0; i < 800; i++) {
+            GenerateFuel(); 
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
     /// <summary>
     /// Generer une planete à une position random. 
     /// </summary>
-    private void GenererPlaneteRandom() {
+    private void GenerateRandomPlanets() {
         GameObject[] newPlanete = Resources.LoadAll<GameObject>("Planetes3D/");
         int randomNumber = Random.Range(0, newPlanete.Length);
         GameObject Planete = Instantiate(newPlanete[randomNumber]);
@@ -40,13 +43,13 @@ public class GeneratePlanetes3D : MonoBehaviour {
 
         Planete.transform.SetParent(null);
 
-        if (fourhtDim) {
+        if (fourthDim) {
             Planete.AddComponent<PlanetLife>();
             Planete.GetComponent<PlanetLife>().StartDeath(); 
         }
     }
 
-    private void GenererCarburant() {
+    private void GenerateFuel() {
         GameObject Carburant = Instantiate(Resources.Load<GameObject>("Hydrogene/Hydrogene3D"));
 
         Carburant.transform.SetParent(transform);

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Le trou noir s'étend au fur et à mesure. 
+/// The black hole gets bigger every second. 
+/// The player must escape ! 
 /// </summary>
 public class TrouNoir : MonoBehaviour {
 
@@ -11,7 +12,7 @@ public class TrouNoir : MonoBehaviour {
 
     private GameObject GameManagerObject;
 
-    // Le rayon du trou noir. 
+    // The radius of the blackhole
     private float rayon;
 
     private GameObject Player;
@@ -32,22 +33,29 @@ public class TrouNoir : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        UpdatePositionTrouNoir(); 
+        UpdatePositionBlackHole(); 
 	}
 
-    public void UpdatePositionTrouNoir() {
+    /// <summary>
+    /// Updates the position of the blackhole at every frame
+    /// </summary>
+    public void UpdatePositionBlackHole() {
         if (Player == null || Stop) {
             return; 
         }
         rayon += Time.deltaTime * 3;
         float distancePlayerCenter = Player.transform.position.magnitude; 
-        GameManagerObject.GetComponent<GameManager>().UpdateDistanceTrouNoir(distancePlayerCenter - rayon);
+        GameManagerObject.GetComponent<GameManager>().UpdateDistanceBlackHole(distancePlayerCenter - rayon);
         ParticleSystem.GetComponent<ForceParticulesTrouNoir>().ChangeStrengthParticules(distancePlayerCenter - rayon); 
         if ((distancePlayerCenter - rayon <= 0) || (distancePlayerCenter - rayon >= distanceGoal)) {
             Stop = true; 
         }
     }
 
+    /// <summary>
+    /// Set the distance to reach by the player to finish the level. 
+    /// </summary>
+    /// <param name="distanceGoal"></param>
     public void SetDistanceGoal(int distanceGoal) {
         this.distanceGoal = distanceGoal; 
     }

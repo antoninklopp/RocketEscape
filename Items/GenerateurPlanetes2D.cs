@@ -2,32 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 2D planet generator for the 2D level. 
+/// </summary>
 public class GenerateurPlanetes2D : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         transform.position = new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z);
-        StartCoroutine(GenererPlanetes());
+        StartCoroutine(GeneratePlanets());
 	}
 
     private void Update() {
         transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
     }
 
-    private IEnumerator GenererPlanetes() {
+    /// <summary>
+    /// Generate a random number of planets (between 1 and 3)
+    /// with a random time window between to creations.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator GeneratePlanets() {
         while (true) {
             float WaitTime = Random.Range(0.1f, 0.4f); 
             yield return new WaitForSeconds(WaitTime);
-            int type = Random.Range(0, 20);
+            int type = Random.Range(0, 7);
             if (type == 0) {
                 // Generer du carburant
-                GenererCarburant(); 
+                GenerateFuel(); 
             }
             else {
                 int numberPlanets = Random.Range(1, 3);
                 for (int i = 0; i < numberPlanets; i++)
-                    GenererPlaneteRandom(i, numberPlanets);
+                    GenerateRandomPlanet(i, numberPlanets);
             }
         }
     }
@@ -35,7 +43,10 @@ public class GenerateurPlanetes2D : MonoBehaviour {
     /// <summary>
     /// Generer une planete à une position random. 
     /// </summary>
-    private void GenererPlaneteRandom(int number, int total) {
+    private void GenerateRandomPlanet(int number, int total) {
+        // A random planet is generated from the resources folder. 
+        // By using this method, we can easily change the planets we want to generate
+        // without changing anything in the code or in the editor. 
         GameObject[] newPlanete = Resources.LoadAll<GameObject>("Planetes/");
         int randomNumber = Random.Range(0, newPlanete.Length);
         GameObject Planete = Instantiate(newPlanete[randomNumber]);
@@ -56,8 +67,11 @@ public class GenerateurPlanetes2D : MonoBehaviour {
 
         Planete.transform.SetParent(null); 
     }
-
-    private void GenererCarburant() {
+    
+    /// <summary>
+    /// Generate fuel randomly to allow the player to reach the end of the level. 
+    /// </summary>
+    private void GenerateFuel() {
         GameObject Carburant = Instantiate(Resources.Load<GameObject>("Hydrogene/Hydrogene"));
 
         Carburant.transform.SetParent(transform);

@@ -27,6 +27,7 @@ public class FuseeController2D : FuseeController {
     private void Move() {
 
         if (!canMove) {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
             return; 
         }
 
@@ -58,7 +59,7 @@ public class FuseeController2D : FuseeController {
         }
     }
 
-    public override void Mort() {
+    public override void Death() {
         GameObject NewFusee = Resources.Load<GameObject>("Fusee/FuseeExplode");
         GameObject InstantiatedFusee = Instantiate(NewFusee);
         InstantiatedFusee.transform.position = gameObject.transform.position;

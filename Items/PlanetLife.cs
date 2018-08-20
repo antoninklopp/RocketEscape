@@ -9,12 +9,13 @@ public class PlanetLife : MonoBehaviour {
     }
 
     private IEnumerator Death() {
-        Vector3 InitialScale = transform.localScale; 
-        int WaitTime = Random.Range(0, 50);
+        Vector3 InitialScale = transform.localScale;
+        float factor = Random.Range(1.01f, 1.022f); 
+        int WaitTime = Random.Range(3, 50);
         yield return new WaitForSeconds(WaitTime); 
-        for (int i = 0; i < 100; i++) {
-            yield return new WaitForSeconds(0.05f);
-            transform.localScale *= 1.02f; 
+        for (int i = 0; i < 130; i++) {
+            yield return new WaitForSeconds(0.02f);
+            transform.localScale *= factor; 
         }
 
         // On crée une autre planete
