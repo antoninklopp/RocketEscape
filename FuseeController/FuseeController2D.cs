@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Rocket controller for the second dimension. 
+/// </summary>
 public class FuseeController2D : FuseeController {
 
     public float speed;

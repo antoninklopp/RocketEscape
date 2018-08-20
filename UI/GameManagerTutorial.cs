@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI; 
 using LanguageModule; 
 
+/// <summary>
+/// Game Manager from the first level. 
+/// Displaying tutorial elements. 
+/// </summary>
 public class GameManagerTutorial : MonoBehaviour {
 
     private int numeroTutorial;

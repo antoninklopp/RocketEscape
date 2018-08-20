@@ -31,7 +31,7 @@ public abstract class FuseeController : MonoBehaviour {
         }
         if (Fuel == 300) {
             Fuel = 0;
-            GameObject.Find("GameManager").GetComponent<GameManager>().EnleverCarburant();
+            GameObject.Find("GameManager").GetComponent<GameManager>().RemoveFuel();
         }
     }
 

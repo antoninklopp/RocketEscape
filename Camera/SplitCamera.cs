@@ -2,24 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Camera that splits randomly in the fifth dimension. 
+/// Everytime the player hits the space bar, we create a "new reality". 
+/// We split the screen in two by creating a new camera with a random view, 
+/// and putting the current camera in one of the two smaller screen spaces. 
+/// </summary>
 public class SplitCamera : MonoBehaviour {
 
+    /*
+     * Size and position of the player camera. 
+     * After the creation of the new cameras, they will
+     * not be split anymore. 
+     * We don't keep their positions. 
+     */ 
     float x = 0;
     float y = 0;
     float w = 1;
     float h = 1;
+
+    /// <summary>
+    /// Checks if the screen has to be split horizontally or vertically. 
+    /// </summary>
     bool cutHorizontal = true; 
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    /// <summary>
+    /// Split the screen by creating a new camera. 
+    /// </summary>
     public void Split() {
         GameObject newCamera = Instantiate(Resources.Load<GameObject>("Camera/BasicCamera"));
         newCamera.transform.position = new Vector3(Random.Range(-500, 500), Random.Range(-500, 500), Random.Range(-500, 500));

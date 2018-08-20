@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// In the 4th dimension, a planet lives, grows and dies. 
+/// This script controls its life and death. 
+/// </summary>
 public class PlanetLife : MonoBehaviour {
 
     public void StartDeath() {
         StartCoroutine(Death()); 
     }
 
+    /// <summary>
+    /// Death of the planet after a random time. 
+    /// Respawns another planet after. 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Death() {
         Vector3 InitialScale = transform.localScale;
         float factor = Random.Range(1.01f, 1.022f); 
@@ -25,7 +34,6 @@ public class PlanetLife : MonoBehaviour {
         newplanet.GetComponent<PlanetLife>().StartDeath();
 
         Destroy(gameObject); 
-
     }
 	
 }

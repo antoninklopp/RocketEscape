@@ -10,13 +10,16 @@ using LanguageModule;
 /// </summary>
 public class GameManager : MonoBehaviour {
 
+    /*
+     * UI Elements to show various informations to the player. 
+     */
     public GameObject Carburant;
-    private int FuelNumber = 4;
     private GameObject DistanceObject;
-
     private GameObject PlayAgainObject;
     private GameObject Menu;
-    private GameObject Victory; 
+    private GameObject Victory;
+
+    private int FuelNumber = 4;
 
     private bool GameIsPaused = false;
 
@@ -26,6 +29,9 @@ public class GameManager : MonoBehaviour {
 
     private string[] dimensionsString = new string[5] { "First", "Second", "Third", "Fourth", "Fifth" };
 
+    /// <summary>
+    /// Text UI to show the dimension to the player for a better understanding. 
+    /// </summary>
     private GameObject DimensionInformation;
 
     private int maxLevel = 5; 
@@ -66,9 +72,14 @@ public class GameManager : MonoBehaviour {
         Carburant.transform.GetChild(FuelNumber - 1).gameObject.SetActive(true); 
     }
 
-    public void EnleverCarburant() {
+    /// <summary>
+    /// Remove Fuel on the UI. 
+    /// called by the <see cref="FuseeController.CheckFuel"/>
+    /// </summary>
+    public void RemoveFuel() {
         if (FuelNumber == 1) {
             Debug.Log("Lose Carburant"); 
+            // Informing the player about the reason of death. 
             Lose("You ran out of fuel\nLook for the H2 bottles"); 
         } else {
             FuelNumber--;
@@ -76,6 +87,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Make the fuel icon flash to show the player he lost a fuel. 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator DisableCarburantAnimation() {
         for (int i = 0; i < 5; i++) {
             if (FuelNumber == 4) {
@@ -89,6 +104,10 @@ public class GameManager : MonoBehaviour {
         Carburant.transform.GetChild(FuelNumber).gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Update the distance of the player to the black hole in the UI. 
+    /// </summary>
+    /// <param name="distance"></param>
     public void UpdateDistanceBlackHole(float distance) {
         if (distance > distanceGoal) {
             // C'est gagné. 
@@ -96,11 +115,14 @@ public class GameManager : MonoBehaviour {
         }
         if (distance < 0) {
             Debug.Log("Lose distance"); 
-            Lose("You have been caught by the blackhole");  
+            Lose("You have been caught by the black hole");  
         }
         DistanceObject.GetComponent<Text>().text = ((int)distance).ToString() + "/" + distanceGoal.ToString(); 
     }
 
+    /// <summary>
+    /// Check for the escape key, to pause or unpause the game. 
+    /// </summary>
     private void CheckForEscape() {
         if (GoingToNextLevel) {
             return; 
@@ -121,6 +143,9 @@ public class GameManager : MonoBehaviour {
         GameIsPaused = !GameIsPaused;
     }
 
+    /// <summary>
+    /// Pause the game, by freezing time. 
+    /// </summary>
     public void PauseGame() {
         Time.timeScale = 0; // freeze time
         Menu.SetActive(true);
@@ -160,6 +185,9 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Go to the next level. 
+    /// </summary>
     public void GoToNextDimension() {
         if (PlayerPrefs.GetInt("Level") == maxLevel) {
             SceneManager.LoadScene("Credits");

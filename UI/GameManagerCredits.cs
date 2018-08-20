@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
 
+/// <summary>
+/// Game Manager from the credits scene. 
+/// </summary>
 public class GameManagerCredits : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 
     // Update is called once per frame
     void Update() {

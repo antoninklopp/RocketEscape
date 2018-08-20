@@ -12,7 +12,7 @@ public class TrouNoir : MonoBehaviour {
 
     private GameObject GameManagerObject;
 
-    // The radius of the blackhole
+    // The radius of the black hole
     private float rayon;
 
     private GameObject Player;
@@ -37,7 +37,7 @@ public class TrouNoir : MonoBehaviour {
 	}
 
     /// <summary>
-    /// Updates the position of the blackhole at every frame
+    /// Updates the position of the black hole at every frame
     /// </summary>
     public void UpdatePositionBlackHole() {
         if (Player == null || Stop) {

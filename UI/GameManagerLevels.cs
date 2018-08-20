@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
 
+/// <summary>
+/// GameManager from the levels scene.
+/// </summary>
 public class GameManagerLevels : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 
     // Update is called once per frame
     void Update() {
@@ -25,6 +23,4 @@ public class GameManagerLevels : MonoBehaviour {
         PlayerPrefs.SetInt("Level", number);
         SceneManager.LoadScene(number.ToString() + "D"); 
     }
-
-
 }

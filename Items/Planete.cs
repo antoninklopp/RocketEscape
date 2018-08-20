@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Planet script for the 2D level. 
+/// </summary>
 public class Planete : MonoBehaviour {
 
     GameObject PlayerObject; 

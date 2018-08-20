@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// When the player collides with a planet, 
+/// the rocket his replaced by this "explosion rocket" that explodes on start, 
+/// with an explosion animation. 
+/// </summary>
 public class ExplodeFusee : MonoBehaviour {
 
 	// Use this for initialization
@@ -19,9 +24,5 @@ public class ExplodeFusee : MonoBehaviour {
         }
         GameObject.Find("GameManager").GetComponent<GameManager>().Lose("Your rocket exploded"); 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
